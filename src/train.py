@@ -62,7 +62,7 @@ class MultiModel():
             'min_samples_split': min_samples_split,
             'max_depth': max_depth,
             'criterion': criterion,
-            'path': self.log_reg_path
+            'path': self.dec_tree_path
             }
         return self.save_model(classifier, self.dec_tree_path, "DEC_TREE", params)
 

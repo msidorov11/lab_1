@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  mlapp: 
+    container_name: mlapp
+    image: ms/mlapp
+    ports:
+      - "8000:8000"
+    build:
+      context: .
+      dockerfile: Dockerfile

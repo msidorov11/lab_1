@@ -1,0 +1,11 @@
+schema: '2.0'
+stages:
+  train:
+    cmd: python3 src/train.py
+    deps:
+    - path: data/seeds.csv
+      md5: 310a78ab079aa5ac71a476952ff9ddfc
+      size: 9125
+    - path: src/train.py
+      md5: 978d1b61e1f7eeb8fb4292d32ffaed81
+      size: 8282
