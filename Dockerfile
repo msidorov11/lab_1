@@ -4,6 +4,10 @@ COPY requirements.txt .
 
 RUN pip install -r requirements.txt
 
+WORKDIR /app
+
+ADD . /app
+
 COPY . .
 
 EXPOSE 8000
