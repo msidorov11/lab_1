@@ -1,0 +1,45 @@
+pipeline {
+    agent any
+
+    environment {
+        DOCKERHUB_CREDS=credentials('lab_1')
+        LC_ALL = "en_US.UTF-8"
+        LANG    = "en_US.UTF-8"
+        LANGUAGE = "en_US.UTF-8"
+    }
+
+options {
+        timestamps()
+        skipDefaultCheckout(true)
+	}
+    stages {
+
+        stage('Login'){
+            steps{
+                bat 'docker login -u %DOCKERHUB_CREDS_USR% -p %DOCKERHUB_CREDS_PSW%'
+                }
+            }
+
+        stage('Pull image'){
+            steps{
+                bat '''
+                        docker pull msidorov11/lab_1:latest
+                '''
+            }
+        }
+
+        stage('Run container'){
+            steps{
+                bat '''
+                        docker run --name lab_1 -p 80:5556 -d msidorov11/lab_1:latest
+                '''
+            }
+        }
+	}
+
+    post {
+        always {
+            bat 'docker stop lab_1 && docker logout'
+        }
+    }
+}
