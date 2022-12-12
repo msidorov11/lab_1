@@ -15,7 +15,10 @@ from logger import Logger
 
 SHOW_LOG = True
 
+""" Class for training models """
 class MultiModel():
+
+    """ __init__ method """
 
     def __init__(self) -> None:
         logger = Logger(SHOW_LOG)
@@ -37,6 +40,9 @@ class MultiModel():
         self.knn_path = os.path.join(self.project_path, "knn.sav")
         self.svc_path = os.path.join(self.project_path, "svc.sav")
         self.log.info("MultiModel is ready")
+
+    """Method of the decision tree model
+        Args: hyperparameters of the model"""
 
     def dec_tree(self, use_config: bool, min_samples_split=40,  max_depth=10, criterion = 'gini', predict=False) -> int:
         if use_config:
@@ -66,6 +72,9 @@ class MultiModel():
             }
         return self.save_model(classifier, self.dec_tree_path, "DEC_TREE", params)
 
+    """Method of the logistic regression model
+        Args: hyperparameters of the model"""
+
     def log_reg(self, use_config: bool, C = 2, penalty = 'l2', predict=False) -> int:
         if use_config:
             try:
@@ -90,6 +99,9 @@ class MultiModel():
             'path': self.log_reg_path
             }
         return self.save_model(classifier, self.log_reg_path, "LOG_REG", params)
+
+    """Method of the random forest model
+        Args: hyperparameters of the model"""
 
     def rand_forest(self, use_config: bool, criterion = 'gini', max_depth = 20, n_estimators=60, predict=False) -> int:
         if use_config:
@@ -119,6 +131,9 @@ class MultiModel():
                 'path': self.rand_forest_path}
         return self.save_model(classifier, self.rand_forest_path, "RAND_FOREST", params)
 
+    """Method of the KNeighborsClassifier model
+        Args: hyperparameters of the model"""
+
     def knn(self, use_config: bool, n_neighbors=3, weights='uniform', p=1, predict=False) -> int:
         if use_config:
             try:
@@ -145,6 +160,9 @@ class MultiModel():
                   'path': self.knn_path}
         return self.save_model(classifier, self.knn_path, "KNN", params)
 
+    """Method of the Support Vector Classification model
+        Args: hyperparameters of the model"""
+
     def svc(self, use_config: bool, C=5, gamma = 0.1, kernel='rbf', predict=False) -> int:
         if use_config:
             try:
@@ -170,6 +188,9 @@ class MultiModel():
                 'kernel': kernel,
                 'path': self.svc_path}
         return self.save_model(classifier, self.svc_path, "SVC", params)
+
+    """Method for saving model
+        Args: classifier - classification model; name - name of the model; params - hyperparameters"""
 
     def save_model(self, classifier, path: str, name: str, params: dict) -> bool:
         self.config[name] = params
