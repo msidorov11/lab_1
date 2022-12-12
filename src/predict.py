@@ -15,7 +15,10 @@ from logger import Logger
 
 SHOW_LOG = True
 
+""" Class for getting predictions of the models """
 class Predictor():
+
+    """ __init__ method """
 
     def __init__(self) -> None:
         logger = Logger(SHOW_LOG)
@@ -51,6 +54,7 @@ class Predictor():
             self.config["SPLIT_DATA"]["y_test"], index_col=0)
         self.log.info("Predictor is ready")
 
+    """Method for prediction"""
     def predict(self) -> int:
         args = self.parser.parse_args()
         try:
