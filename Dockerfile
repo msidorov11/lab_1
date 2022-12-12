@@ -11,3 +11,6 @@ ADD . /app
 COPY . .
 
 EXPOSE 8000
+
+ENTRYPOINT [ "python" ]
+CMD ["app.py"]
