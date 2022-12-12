@@ -10,8 +10,10 @@ from logger import Logger
 TEST_SIZE = 0.5
 SHOW_LOG = True
 
-
+""" Class for preprocessing data """
 class DataMaker():
+
+    """ __init__ method """
 
     def __init__(self) -> None:
         logger = Logger(SHOW_LOG)
@@ -27,6 +29,8 @@ class DataMaker():
             self.project_path, "y_test.csv")]
         self.log.info("DataMaker is ready")
 
+    """ Method for getting data """
+
     def get_data(self) -> bool:
         dataset = pd.read_csv(self.data_path)
         X = pd.DataFrame(dataset[['Area', 'Perimeter', 'Compactness', 'Kernel.Length', 'Kernel.Width', 'Asymmetry.Coeff', 'Kernel.Groove']].values)
@@ -41,6 +45,9 @@ class DataMaker():
         else:
             self.log.error("X and y data is not ready")
             return False
+
+    """ Method for spliting data 
+        Args: test_size - size of test subset"""
 
     def split_data(self, test_size=TEST_SIZE) -> bool:
         self.get_data()
@@ -67,6 +74,9 @@ class DataMaker():
             os.path.isfile(self.train_path[1]) and\
             os.path.isfile(self.test_path[0]) and \
             os.path.isfile(self.test_path[1])
+
+    """ Method for saving splitted data 
+        Args: df - dataframe"""
 
     def save_splitted_data(self, df: pd.DataFrame, path: str) -> bool:
         df = df.reset_index(drop=True)
